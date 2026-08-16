@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Artur Ivanov's practical SOC, detection engineering and DFIR portfolio.">
+  <meta name="theme-color" content="#08111f">
+  <meta property="og:title" content="Artur Ivanov — SOC / DFIR Portfolio">
+  <meta property="og:description" content="Hands-on security labs, detections and incident investigations.">
+  <meta property="og:type" content="website">
+  <title>Artur Ivanov — SOC / DFIR Portfolio</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-mark" aria-hidden="true">AI</span>
+        <span>Artur Ivanov</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span></span><span></span><span></span>
+        <span class="sr-only">Open navigation</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-nav>
+        <a href="#projects">Projects</a>
+        <a href="#lab">Home Lab</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+        <a class="nav-github" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero">
+      <div class="hero-grid container">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="status-dot"></span> Open to SOC Analyst L1 opportunities</p>
+          <h1>Turning telemetry into<br><span>defensible conclusions.</span></h1>
+          <p class="hero-lead">
+            Practical SOC, detection and incident response portfolio. I build controlled labs,
+            generate security events, investigate the evidence and document repeatable detection logic.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">Explore projects</a>
+            <a class="button button-secondary" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">View GitHub</a>
+          </div>
+          <ul class="hero-tags" aria-label="Core focus areas">
+            <li>SOC Operations</li>
+            <li>Windows Telemetry</li>
+            <li>SIEM</li>
+            <li>Incident Response</li>
+          </ul>
+        </div>
+
+        <aside class="terminal-card reveal" aria-label="Current analyst profile">
+          <div class="terminal-top">
+            <span></span><span></span><span></span>
+            <p>analyst-profile.txt</p>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$</span> whoami</p>
+            <p class="terminal-output">artur / soc-analyst-l1-candidate</p>
+            <p><span class="prompt">$</span> cat focus.txt</p>
+            <p class="terminal-output">Windows • Linux • Networks<br>SIEM • Detection • IR/DFIR</p>
+            <p><span class="prompt">$</span> cat method.txt</p>
+            <p class="terminal-output">collect → correlate → investigate<br>detect → document → improve</p>
+            <p><span class="prompt">$</span> echo $STATUS</p>
+            <p class="terminal-output terminal-live">building evidence every day_</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Portfolio highlights">
+      <div class="container metrics-grid">
+        <div><strong>5</strong><span>documented lab areas</span></div>
+        <div><strong>10+</strong><span>security event types</span></div>
+        <div><strong>6</strong><span>lab systems and sensors</span></div>
+        <div><strong>100%</strong><span>controlled and ethical practice</span></div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Evidence over claims</p>
+            <h2>Selected projects</h2>
+          </div>
+          <p>Every project records the objective, environment, evidence, analysis and measurable result.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card featured reveal">
+            <div class="card-topline"><span class="project-number">01</span><span class="project-status complete">Documented</span></div>
+            <div class="project-icon" aria-hidden="true">⌁</div>
+            <p class="project-type">Detection Engineering · SIEM</p>
+            <h3>Wazuh Detection Lab</h3>
+            <p>Generated controlled Windows activity, correlated Sysmon and Security events in Wazuh, and mapped detections to MITRE ATT&amp;CK.</p>
+            <ul class="tag-list"><li>Wazuh</li><li>Sysmon</li><li>T1105</li><li>T1136.001</li></ul>
+            <a class="card-link" href="projects/wazuh-detection.html">Read case study <span>→</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="card-topline"><span class="project-number">02</span><span class="project-status complete">Documented</span></div>
+            <div class="project-icon" aria-hidden="true">▦</div>
+            <p class="project-type">Endpoint Telemetry · Windows</p>
+            <h3>Windows Telemetry Lab</h3>
+            <p>Enabled native auditing, PowerShell logging and Sysmon to reconstruct process, authentication, file and network activity.</p>
+            <ul class="tag-list"><li>Event Logs</li><li>4104</li><li>4625</li><li>Sysmon</li></ul>
+            <a class="card-link" href="projects/windows-telemetry.html">Read case study <span>→</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="card-topline"><span class="project-number">03</span><span class="project-status complete">Documented</span></div>
+            <div class="project-icon" aria-hidden="true">◇</div>
+            <p class="project-type">Infrastructure · Blue Team</p>
+            <h3>Home SOC Lab</h3>
+            <p>Designed an isolated virtual environment for safe attack simulation, log collection, network monitoring and investigation.</p>
+            <ul class="tag-list"><li>VirtualBox</li><li>OPNsense</li><li>Zeek</li><li>Suricata</li></ul>
+            <a class="card-link" href="projects/home-soc-lab.html">Read case study <span>→</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="card-topline"><span class="project-number">04</span><span class="project-status complete">Documented</span></div>
+            <div class="project-icon" aria-hidden="true">⇄</div>
+            <p class="project-type">Network Analysis · Foundations</p>
+            <h3>Network Foundations</h3>
+            <p>Validated Ethernet switching, ARP, IP routing, VLAN segmentation, ACL logic and core service behaviour in controlled labs.</p>
+            <ul class="tag-list"><li>TCP/IP</li><li>ARP</li><li>VLAN</li><li>ACL</li></ul>
+            <a class="card-link" href="projects/network-foundations.html">Read case study <span>→</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="card-topline"><span class="project-number">05</span><span class="project-status complete">Documented</span></div>
+            <div class="project-icon" aria-hidden="true">▣</div>
+            <p class="project-type">Access Control · Host Security</p>
+            <h3>Windows Security Controls</h3>
+            <p>Practised users, groups, SIDs, UAC, NTFS permissions, registry analysis, host firewalling and persistence artefacts.</p>
+            <ul class="tag-list"><li>NTFS</li><li>DACL/SACL</li><li>Registry</li><li>Firewall</li></ul>
+            <a class="card-link" href="projects/windows-security.html">Read case study <span>→</span></a>
+          </article>
+
+          <article class="project-card muted-card reveal">
+            <div class="card-topline"><span class="project-number">06</span><span class="project-status progress">Report in progress</span></div>
+            <div class="project-icon" aria-hidden="true">⌕</div>
+            <p class="project-type">DFIR · Network Forensics</p>
+            <h3>PCAP Investigation</h3>
+            <p>Investigating suspicious remote administration traffic and preparing a defensible incident report with timeline and IOCs.</p>
+            <ul class="tag-list"><li>PCAP</li><li>Zeek</li><li>IOC</li><li>Timeline</li></ul>
+            <span class="card-link disabled">Publishing after evidence review</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="lab" class="section lab-section">
+      <div class="container lab-grid">
+        <div class="lab-copy reveal">
+          <p class="eyebrow">Safe testing environment</p>
+          <h2>Home SOC laboratory</h2>
+          <p>
+            A segmented VirtualBox environment used to reproduce security events without touching third-party systems.
+            Windows and Linux telemetry is collected centrally, while network sensors provide an independent view of traffic.
+          </p>
+          <div class="workflow">
+            <div><span>01</span><p><strong>Simulate</strong><br>Controlled activity</p></div>
+            <div><span>02</span><p><strong>Collect</strong><br>Host and network logs</p></div>
+            <div><span>03</span><p><strong>Investigate</strong><br>Build the timeline</p></div>
+            <div><span>04</span><p><strong>Detect</strong><br>Create repeatable logic</p></div>
+          </div>
+          <a class="text-link" href="projects/home-soc-lab.html">View architecture and controls →</a>
+        </div>
+
+        <div class="topology reveal" role="img" aria-label="Home SOC laboratory topology">
+          <div class="topology-label">ISOLATED LAB NETWORK</div>
+          <div class="node node-attacker"><span>KALI</span><small>Simulation</small></div>
+          <div class="connector horizontal connector-a"></div>
+          <div class="node node-firewall"><span>OPNsense</span><small>Firewall / IDS</small></div>
+          <div class="connector vertical connector-b"></div>
+          <div class="topology-row">
+            <div class="node"><span>WINDOWS 10</span><small>Sysmon agent</small></div>
+            <div class="node node-core"><span>WAZUH</span><small>SIEM / correlation</small></div>
+            <div class="node"><span>UBUNTU</span><small>Zeek / Suricata</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><p class="eyebrow">Working knowledge</p><h2>Technical focus</h2></div>
+          <p>Skills are listed only where they are supported by completed study or hands-on laboratory work.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-block reveal"><span>01</span><h3>SIEM &amp; detection</h3><p>Wazuh, alert triage, event correlation, custom detection concepts, MITRE ATT&amp;CK mapping.</p></article>
+          <article class="skill-block reveal"><span>02</span><h3>Windows</h3><p>Event Logs, Sysmon, PowerShell logging, processes, services, registry, NTFS and Defender.</p></article>
+          <article class="skill-block reveal"><span>03</span><h3>Networks</h3><p>TCP/IP, DNS, DHCP, HTTP/S, VLANs, routing, NAT/PAT, ACLs, VPN and Syslog.</p></article>
+          <article class="skill-block reveal"><span>04</span><h3>Network monitoring</h3><p>Zeek, Suricata, Wireshark, PCAP analysis, firewall telemetry and traffic baselining.</p></article>
+          <article class="skill-block reveal"><span>05</span><h3>Linux</h3><p>Command line, permissions, processes, services and logs — active learning track.</p></article>
+          <article class="skill-block reveal"><span>06</span><h3>Investigation</h3><p>Evidence collection, timeline reconstruction, IOC extraction and concise incident reporting.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="container about-grid">
+        <div class="about-heading reveal">
+          <p class="eyebrow">About me</p>
+          <h2>Operational discipline meets technical curiosity.</h2>
+        </div>
+        <div class="about-copy reveal">
+          <p>
+            I am transitioning into cybersecurity after ten years in a regulated environment where confidentiality,
+            careful documentation and compliance were part of everyday work. I also completed a 706-hour professional
+            retraining programme in Technical Information Protection.
+          </p>
+          <p>
+            My immediate goal is SOC Analyst L1. My long-term direction is incident response and digital forensics.
+            I learn by building: every topic becomes a controlled experiment, a set of artefacts and a written conclusion.
+          </p>
+          <div class="about-links">
+            <a class="button button-primary" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub profile</a>
+            <a class="button button-secondary" href="#projects">Project archive</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span data-year></span> Artur Ivanov · SOC / DFIR Portfolio</p>
+      <p>Built as an evidence-first record of practical learning.</p>
+    </div>
+  </footer>
+</body>
+</html>

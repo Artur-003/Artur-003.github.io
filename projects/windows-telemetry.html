@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Windows telemetry and Sysmon case study by Artur Ivanov.">
+  <meta name="theme-color" content="#08111f">
+  <title>Windows Telemetry Lab — Artur Ivanov</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script defer src="../assets/js/app.js"></script>
+</head>
+<body class="project-page">
+  <a class="skip-link" href="#case">Skip to case study</a>
+  <header class="site-header scrolled" data-header><div class="container nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">AI</span><span>Artur Ivanov</span></a><nav class="site-nav"><a href="../index.html#projects">All projects</a><a class="nav-github" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub ↗</a></nav></div></header>
+  <main id="case">
+    <section class="project-hero"><div class="container"><p class="breadcrumb"><a href="../index.html">Portfolio</a> / Windows Telemetry Lab</p><p class="eyebrow">Endpoint Telemetry · Windows</p><h1>Windows Telemetry Lab</h1><p class="project-summary">Configuring native Windows auditing, PowerShell logging and Sysmon, then using the resulting events to reconstruct user and process activity.</p><div class="project-meta"><span>Event Viewer</span><span>Security Log</span><span>Sysmon</span><span>PowerShell</span><span>Defender</span></div></div></section>
+    <section class="section"><div class="container case-layout">
+      <article class="case-content">
+        <section id="objective" class="case-section"><h2>Objective</h2><p>Understand which Windows data sources answer the core SOC questions: what ran, who ran it, what created it, what it connected to, what it changed and whether authentication succeeded.</p></section>
+        <section id="configuration" class="case-section">
+          <h2>Telemetry configuration</h2>
+          <ul><li>Enabled successful and failed logon auditing.</li><li>Enabled process creation auditing and command-line capture.</li><li>Enabled the PowerShell Operational channel and Script Block Logging.</li><li>Installed Sysmon with a focused configuration for process, network and file visibility.</li><li>Reviewed Microsoft Defender detection and remediation events.</li></ul>
+          <div class="callout"><p>Configuration was validated by deliberately generating benign test activity and finding the resulting events by timestamp, process and user.</p></div>
+        </section>
+        <section id="events" class="case-section">
+          <h2>Events investigated</h2>
+          <table class="evidence-table"><thead><tr><th>Source</th><th>ID</th><th>What it shows</th></tr></thead><tbody>
+            <tr><td>Windows Security</td><td>4624</td><td>Successful logon, account and logon type</td></tr>
+            <tr><td>Windows Security</td><td>4625</td><td>Failed logon, reason, source and target account</td></tr>
+            <tr><td>Windows Security</td><td>4688</td><td>New process and creator process</td></tr>
+            <tr><td>PowerShell Operational</td><td>4104</td><td>PowerShell script-block content</td></tr>
+            <tr><td>Sysmon</td><td>1</td><td>Process creation, command line, hashes and parent</td></tr>
+            <tr><td>Sysmon</td><td>3</td><td>Network connection and destination</td></tr>
+            <tr><td>Sysmon</td><td>11</td><td>File creation activity</td></tr>
+            <tr><td>Microsoft Defender</td><td>1116 / 1117</td><td>Detection followed by remediation action</td></tr>
+          </tbody></table>
+        </section>
+        <section id="reconstruction" class="case-section">
+          <h2>Process reconstruction</h2><p>A known Notepad launch was used to practise reading process lineage. The event showed the executable path, full command line, user, integrity level and PowerShell parent.</p>
+          <div class="code-block">ParentImage: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Image:       C:\Windows\System32\notepad.exe
+CommandLine: notepad.exe C:\SOC-Lab\incident.txt
+User:        DESKTOP\analyst
+Integrity:   High</div>
+          <h3>PID versus Process GUID</h3><p>A PID identifies a currently running process but can be reused after termination. Sysmon's ProcessGuid uniquely identifies that process instance and supports reliable correlation between process, network and file events.</p>
+        </section>
+        <section id="triage" class="case-section"><h2>Triage questions</h2><ol><li>Is the executable path expected for this image?</li><li>Is the parent-child relationship normal for the application?</li><li>Does the command line match the user's task?</li><li>Did the process create files, persistence or outbound connections?</li><li>What integrity level and account context did it use?</li><li>Are there Defender, authentication or PowerShell events nearby?</li></ol></section>
+        <section id="result" class="case-section"><h2>Result</h2><div class="result-grid"><div><strong>8</strong><span>high-value event types reviewed</span></div><div><strong>4</strong><span>Windows log channels correlated</span></div><div><strong>1</strong><span>repeatable triage checklist created</span></div></div><p>The lab established a practical baseline for endpoint investigations and created the telemetry foundation required before writing higher-level SIEM detections.</p></section>
+      </article>
+      <aside class="case-sidebar"><h2>Case contents</h2><a href="#objective">Objective</a><a href="#configuration">Configuration</a><a href="#events">Events</a><a href="#reconstruction">Reconstruction</a><a href="#triage">Triage</a><a href="#result">Result</a></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-wrap"><p>© <span data-year></span> Artur Ivanov</p><p><a href="../index.html#projects">← Back to projects</a></p></div></footer>
+</body>
+</html>

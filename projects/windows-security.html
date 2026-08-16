@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Windows security controls laboratory by Artur Ivanov."><meta name="theme-color" content="#08111f">
+  <title>Windows Security Controls — Artur Ivanov</title><link rel="stylesheet" href="../assets/css/styles.css"><script defer src="../assets/js/app.js"></script>
+</head>
+<body class="project-page">
+  <a class="skip-link" href="#case">Skip to case study</a>
+  <header class="site-header scrolled" data-header><div class="container nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">AI</span><span>Artur Ivanov</span></a><nav class="site-nav"><a href="../index.html#projects">All projects</a><a class="nav-github" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub ↗</a></nav></div></header>
+  <main id="case">
+    <section class="project-hero"><div class="container"><p class="breadcrumb"><a href="../index.html">Portfolio</a> / Windows Security Controls</p><p class="eyebrow">Access Control · Host Security</p><h1>Windows Security Controls</h1><p class="project-summary">Hands-on exercises connecting Windows identities, access control, persistence locations and host protections to investigation evidence.</p><div class="project-meta"><span>SID</span><span>UAC</span><span>NTFS</span><span>Registry</span><span>Task Scheduler</span><span>Firewall</span><span>Defender</span></div></div></section>
+    <section class="section"><div class="container case-layout">
+      <article class="case-content">
+        <section id="identity" class="case-section"><h2>Identity and security tokens</h2><p>Created a local training account and SOC analyst group, inspected their SIDs and compared standard and elevated security tokens.</p><ul><li>A SID identifies a security principal such as a user or group.</li><li>Group membership contributes permissions to the access token.</li><li>UAC normally gives an administrator a medium-integrity token and requests consent before creating a high-integrity process.</li><li>Privileges and object permissions are related but different: privileges grant system-wide capabilities, while ACLs govern access to specific securable objects.</li></ul></section>
+        <section id="ntfs" class="case-section"><h2>NTFS permissions</h2><p>Built a protected <code>C:\SOC-Lab</code> directory, disabled inherited permissions and assigned explicit rights to SYSTEM, Administrators and a dedicated analyst group.</p><div class="code-block">icacls "C:\SOC-Lab" /inheritance:r
+icacls "C:\SOC-Lab" /grant:r \
+  "*S-1-5-32-544:(OI)(CI)F" \
+  "*S-1-5-18:(OI)(CI)F" \
+  "DESKTOP\SOC-Analysts:(OI)(CI)M"</div>
+          <table class="evidence-table"><thead><tr><th>Concept</th><th>Purpose</th></tr></thead><tbody><tr><td>DACL</td><td>Defines who is allowed or denied access</td></tr><tr><td>SACL</td><td>Defines which access attempts should be audited</td></tr><tr><td>OI / CI</td><td>Propagates permissions to files and child directories</td></tr><tr><td>M / F</td><td>Modify versus Full Control</td></tr></tbody></table>
+        </section>
+        <section id="persistence" class="case-section"><h2>Persistence surfaces</h2><p>Reviewed common locations that may contain legitimate configuration or attacker persistence:</p><ul><li><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code></li><li><code>HKLM\Software\Microsoft\Windows\CurrentVersion\Run</code></li><li>Windows services and their executable paths</li><li>Scheduled tasks, triggers, principals and actions</li></ul><p>The presence of an entry is not automatically malicious. The analyst validates path, signature, parent process, user context, creation time and related telemetry.</p></section>
+        <section id="controls" class="case-section"><h2>Protection controls</h2><table class="evidence-table"><thead><tr><th>Control</th><th>Exercise</th><th>Evidence</th></tr></thead><tbody>
+          <tr><td>Simplewall</td><td>Blocked and restored outbound access for curl.exe</td><td>Connection succeeded, failed after policy, then succeeded after rollback</td></tr>
+          <tr><td>Microsoft Defender</td><td>Reviewed real-time, quick, full and offline scan modes</td><td>Operational events 1116 and 1117</td></tr>
+          <tr><td>Task Scheduler</td><td>Inspected task action, trigger, user and run level</td><td>Task Scheduler Operational events and task metadata</td></tr>
+          <tr><td>Registry</td><td>Created, modified, exported and restored a safe lab key</td><td>REG_SZ and REG_DWORD values</td></tr>
+        </tbody></table></section>
+        <section id="result" class="case-section"><h2>Result</h2><div class="result-grid"><div><strong>4</strong><span>host protection areas tested</span></div><div><strong>3</strong><span>identity contexts compared</span></div><div><strong>1</strong><span>least-privilege folder built</span></div></div><p>The exercises connected preventive controls with the artefacts a SOC analyst can use to identify misconfiguration, persistence and privilege misuse.</p></section>
+      </article>
+      <aside class="case-sidebar"><h2>Case contents</h2><a href="#identity">Identity</a><a href="#ntfs">NTFS</a><a href="#persistence">Persistence</a><a href="#controls">Controls</a><a href="#result">Result</a></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-wrap"><p>© <span data-year></span> Artur Ivanov</p><p><a href="../index.html#projects">← Back to projects</a></p></div></footer>
+</body></html>

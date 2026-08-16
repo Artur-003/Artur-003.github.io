@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Home SOC laboratory architecture by Artur Ivanov."><meta name="theme-color" content="#08111f">
+  <title>Home SOC Lab — Artur Ivanov</title><link rel="stylesheet" href="../assets/css/styles.css"><script defer src="../assets/js/app.js"></script>
+</head>
+<body class="project-page">
+  <a class="skip-link" href="#case">Skip to case study</a>
+  <header class="site-header scrolled" data-header><div class="container nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">AI</span><span>Artur Ivanov</span></a><nav class="site-nav"><a href="../index.html#projects">All projects</a><a class="nav-github" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub ↗</a></nav></div></header>
+  <main id="case">
+    <section class="project-hero"><div class="container"><p class="breadcrumb"><a href="../index.html">Portfolio</a> / Home SOC Lab</p><p class="eyebrow">Infrastructure · Blue Team</p><h1>Home SOC Laboratory</h1><p class="project-summary">An isolated virtual environment for generating security telemetry, testing detections and conducting repeatable incident investigations.</p><div class="project-meta"><span>VirtualBox</span><span>Windows 10</span><span>Kali Linux</span><span>Wazuh</span><span>OPNsense</span><span>Zeek</span><span>Suricata</span></div></div></section>
+    <section class="section"><div class="container case-layout">
+      <article class="case-content">
+        <section id="goal" class="case-section"><h2>Design goal</h2><p>Create a safe and observable environment where test activity has a known start time and expected outcome. The lab separates simulation, monitored endpoints, central analysis and network sensing so that one event can be viewed from multiple perspectives.</p><div class="callout"><p>The environment is isolated and used only for authorised training. No testing targets systems outside the laboratory.</p></div></section>
+        <section id="architecture" class="case-section"><h2>Architecture</h2><table class="evidence-table"><thead><tr><th>System</th><th>Role</th><th>Primary data</th></tr></thead><tbody>
+          <tr><td>Ubuntu host</td><td>Virtualisation platform</td><td>Host networking and VM isolation</td></tr>
+          <tr><td>Windows 10</td><td>Monitored workstation</td><td>Security, PowerShell, Defender and Sysmon logs</td></tr>
+          <tr><td>Kali Linux</td><td>Controlled simulation system</td><td>Test source and known activity timeline</td></tr>
+          <tr><td>Wazuh server</td><td>SIEM and endpoint monitoring</td><td>Normalised events, rules and alerts</td></tr>
+          <tr><td>OPNsense</td><td>Routing and security gateway</td><td>Firewall and IDS telemetry</td></tr>
+          <tr><td>Ubuntu sensor</td><td>Network monitoring</td><td>Zeek metadata and Suricata alerts</td></tr>
+        </tbody></table></section>
+        <section id="flow" class="case-section"><h2>Evidence flow</h2><ol><li>Generate a controlled action from an identified system.</li><li>Record the exact timestamp and expected artefacts.</li><li>Collect endpoint events through the Wazuh agent.</li><li>Review firewall, Zeek or Suricata data for independent network context.</li><li>Correlate host and network evidence into one timeline.</li><li>Document the verdict and convert the useful observation into detection logic.</li></ol></section>
+        <section id="controls" class="case-section"><h2>Controls and visibility</h2><table class="evidence-table"><thead><tr><th>Layer</th><th>Control</th><th>Analyst question</th></tr></thead><tbody>
+          <tr><td>Endpoint</td><td>Sysmon / Windows audit</td><td>What ran and under which user?</td></tr>
+          <tr><td>Network</td><td>Zeek / Suricata</td><td>Who communicated with whom and how?</td></tr>
+          <tr><td>Gateway</td><td>OPNsense firewall</td><td>Was traffic permitted, blocked or translated?</td></tr>
+          <tr><td>Central analysis</td><td>Wazuh</td><td>Which events form one suspicious sequence?</td></tr>
+        </tbody></table></section>
+        <section id="result" class="case-section"><h2>Result</h2><div class="result-grid"><div><strong>6</strong><span>systems and security components</span></div><div><strong>3</strong><span>independent telemetry layers</span></div><div><strong>1</strong><span>repeatable investigation workflow</span></div></div><p>The lab provides the foundation for portfolio cases without overstating production experience: every claim can be tied to a controlled action, an event record and an analyst conclusion.</p></section>
+        <section id="next" class="case-section"><h2>Planned improvements</h2><ul><li>Add a small Active Directory environment for Kerberos, LDAP and domain telemetry.</li><li>Version detection rules and test data alongside the reports.</li><li>Standardise screenshots and evidence redaction before publication.</li><li>Measure rule quality using expected true-positive and benign control events.</li></ul></section>
+      </article>
+      <aside class="case-sidebar"><h2>Case contents</h2><a href="#goal">Design goal</a><a href="#architecture">Architecture</a><a href="#flow">Evidence flow</a><a href="#controls">Controls</a><a href="#result">Result</a><a href="#next">Next steps</a></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-wrap"><p>© <span data-year></span> Artur Ivanov</p><p><a href="../index.html#projects">← Back to projects</a></p></div></footer>
+</body></html>

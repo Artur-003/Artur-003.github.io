@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wazuh detection engineering case study by Artur Ivanov.">
+  <meta name="theme-color" content="#08111f">
+  <title>Wazuh Detection Lab — Artur Ivanov</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script defer src="../assets/js/app.js"></script>
+</head>
+<body class="project-page">
+  <a class="skip-link" href="#case">Skip to case study</a>
+  <header class="site-header scrolled" data-header>
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html"><span class="brand-mark">AI</span><span>Artur Ivanov</span></a>
+      <nav class="site-nav"><a href="../index.html#projects">All projects</a><a class="nav-github" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+    </div>
+  </header>
+
+  <main id="case">
+    <section class="project-hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="../index.html">Portfolio</a> / Wazuh Detection Lab</p>
+        <p class="eyebrow">Detection Engineering · SIEM</p>
+        <h1>Wazuh Detection Lab</h1>
+        <p class="project-summary">Correlating Windows endpoint telemetry to identify account creation, suspicious PowerShell activity and repeated authentication failures in a controlled environment.</p>
+        <div class="project-meta"><span>Wazuh</span><span>Sysmon</span><span>Windows Security</span><span>PowerShell</span><span>MITRE ATT&amp;CK</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container case-layout">
+        <article class="case-content">
+          <section id="objective" class="case-section">
+            <h2>Objective</h2>
+            <p>Build a repeatable analyst workflow: generate known activity, collect independent telemetry sources, correlate related events, determine whether the behaviour is suspicious and record the detection opportunity.</p>
+            <div class="callout"><p><strong>Safety:</strong> all activity was performed inside an isolated home laboratory against systems I own and control.</p></div>
+          </section>
+
+          <section id="environment" class="case-section">
+            <h2>Environment</h2>
+            <table class="evidence-table">
+              <thead><tr><th>Component</th><th>Role</th><th>Evidence</th></tr></thead>
+              <tbody>
+                <tr><td>Windows 10 VM</td><td>Monitored endpoint</td><td>Security, PowerShell and Sysmon logs</td></tr>
+                <tr><td>Wazuh agent</td><td>Log forwarding</td><td>Normalised endpoint events</td></tr>
+                <tr><td>Wazuh manager</td><td>Correlation and alerting</td><td>Rules, severity and ATT&amp;CK mapping</td></tr>
+                <tr><td>Kali Linux VM</td><td>Controlled activity source</td><td>Known test timestamps and source context</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="scenarios" class="case-section">
+            <h2>Test scenarios</h2>
+            <h3>1. Local account creation</h3>
+            <p>A local account was created to validate visibility into account-management activity. The investigation connected the command-line process with the resulting Windows audit event.</p>
+            <table class="evidence-table">
+              <thead><tr><th>Source</th><th>Event</th><th>Analyst value</th></tr></thead>
+              <tbody>
+                <tr><td>Security</td><td>4720</td><td>A user account was created</td></tr>
+                <tr><td>Sysmon</td><td>1</td><td>Process image, command line, parent and user</td></tr>
+                <tr><td>MITRE ATT&amp;CK</td><td>T1136.001</td><td>Create Account: Local Account</td></tr>
+              </tbody>
+            </table>
+
+            <h3>2. Suspicious PowerShell download behaviour</h3>
+            <p>A controlled PowerShell command produced script-block, process and network telemetry. Wazuh generated a high-severity alert associated with transfer and command-execution techniques.</p>
+            <table class="evidence-table">
+              <thead><tr><th>Source</th><th>Event</th><th>Relevant fields</th></tr></thead>
+              <tbody>
+                <tr><td>PowerShell Operational</td><td>4104</td><td>Decoded script-block content</td></tr>
+                <tr><td>Sysmon</td><td>1</td><td>Image, command line, parent image, integrity</td></tr>
+                <tr><td>Sysmon</td><td>3</td><td>Process, destination IP, protocol and port</td></tr>
+                <tr><td>Wazuh</td><td>High-severity alert</td><td>Rule, level, description and ATT&amp;CK technique</td></tr>
+              </tbody>
+            </table>
+
+            <h3>3. Repeated failed logons</h3>
+            <p>Failed authentication events were reviewed as a sequence rather than isolated records. The analyst pivoted on account, source, logon type and the number of attempts within a time window.</p>
+            <table class="evidence-table">
+              <thead><tr><th>Event</th><th>Key fields</th><th>Question answered</th></tr></thead>
+              <tbody><tr><td>4625</td><td>Target account, source address, logon type, status</td><td>Who attempted access, from where, how and why did it fail?</td></tr></tbody>
+            </table>
+          </section>
+
+          <section id="analysis" class="case-section">
+            <h2>Analyst workflow</h2>
+            <ol>
+              <li>Fix the event time and host before pivoting.</li>
+              <li>Identify the initiating user and process.</li>
+              <li>Review the full command line and parent-child relationship.</li>
+              <li>Correlate network, authentication and file events in the same time window.</li>
+              <li>Map the observed behaviour to ATT&amp;CK only after validating the evidence.</li>
+              <li>Record the verdict, confidence, scope and recommended response.</li>
+            </ol>
+          </section>
+
+          <section id="result" class="case-section">
+            <h2>Result</h2>
+            <div class="result-grid">
+              <div><strong>3</strong><span>controlled scenarios correlated</span></div>
+              <div><strong>4</strong><span>independent telemetry sources used</span></div>
+              <div><strong>2</strong><span>ATT&amp;CK techniques validated</span></div>
+            </div>
+            <p>The lab demonstrated that an alert alone is not a conclusion. A defensible verdict requires endpoint context, event sequencing and confirmation across multiple telemetry sources.</p>
+          </section>
+
+          <section id="lessons" class="case-section">
+            <h2>Lessons learned</h2>
+            <ul>
+              <li>Script Block Logging reveals PowerShell intent that process-name-only detection may miss.</li>
+              <li>Process GUID is more reliable than PID for correlation because operating systems can reuse PIDs.</li>
+              <li>A single failed logon is weak evidence; frequency, source, account and surrounding activity determine severity.</li>
+              <li>Detection quality improves when the rule contains enough context for a junior analyst to triage it quickly.</li>
+            </ul>
+          </section>
+        </article>
+
+        <aside class="case-sidebar" aria-label="Case study contents">
+          <h2>Case contents</h2>
+          <a href="#objective">Objective</a><a href="#environment">Environment</a><a href="#scenarios">Test scenarios</a><a href="#analysis">Workflow</a><a href="#result">Result</a><a href="#lessons">Lessons</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-wrap"><p>© <span data-year></span> Artur Ivanov</p><p><a href="../index.html#projects">← Back to projects</a></p></div></footer>
+</body>
+</html>

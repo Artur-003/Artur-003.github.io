@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Network foundations laboratory by Artur Ivanov."><meta name="theme-color" content="#08111f">
+  <title>Network Foundations — Artur Ivanov</title><link rel="stylesheet" href="../assets/css/styles.css"><script defer src="../assets/js/app.js"></script>
+</head>
+<body class="project-page">
+  <a class="skip-link" href="#case">Skip to case study</a>
+  <header class="site-header scrolled" data-header><div class="container nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">AI</span><span>Artur Ivanov</span></a><nav class="site-nav"><a href="../index.html#projects">All projects</a><a class="nav-github" href="https://github.com/Artur-003" target="_blank" rel="noreferrer">GitHub ↗</a></nav></div></header>
+  <main id="case">
+    <section class="project-hero"><div class="container"><p class="breadcrumb"><a href="../index.html">Portfolio</a> / Network Foundations</p><p class="eyebrow">Network Analysis · Foundations</p><h1>Network Foundations</h1><p class="project-summary">A set of Cisco Packet Tracer and host-level exercises connecting Ethernet, IP routing and core application services to the evidence a SOC analyst sees.</p><div class="project-meta"><span>Packet Tracer</span><span>TCP/IP</span><span>ARP</span><span>VLAN</span><span>ACL</span><span>DNS</span><span>HTTP/S</span></div></div></section>
+    <section class="section"><div class="container case-layout">
+      <article class="case-content">
+        <section id="objective" class="case-section"><h2>Objective</h2><p>Move beyond memorising protocols and understand how normal traffic is generated, forwarded and represented in endpoint, firewall and packet-capture evidence.</p></section>
+        <section id="lan" class="case-section"><h2>Ethernet LAN exercise</h2><p>Built a two-host switched LAN, assigned IPv4 addresses, verified connectivity and examined the endpoint ARP cache and switch MAC address table.</p>
+          <div class="code-block">PC1 ── Fa0/1 [ Switch ] Fa0/2 ── PC2
+
+ping 192.168.1.20
+arp -a
+show mac address-table dynamic</div>
+          <h3>Observed sequence</h3><ol><li>The sender determines that the destination is in the local subnet.</li><li>An ARP request is broadcast because the destination MAC address is unknown.</li><li>The target returns a unicast ARP reply.</li><li>The ICMP echo request is sent in an Ethernet frame addressed to the learned MAC.</li><li>The switch learns source MAC addresses on ingress ports and forwards known unicast traffic to the correct port.</li></ol>
+        </section>
+        <section id="services" class="case-section"><h2>Core services and analyst relevance</h2><table class="evidence-table"><thead><tr><th>Protocol</th><th>Typical port</th><th>SOC relevance</th></tr></thead><tbody>
+          <tr><td>DNS</td><td>53 UDP/TCP</td><td>Domain resolution, tunnelling and malicious infrastructure</td></tr>
+          <tr><td>DHCP</td><td>67/68 UDP</td><td>Address assignment, rogue servers and host attribution</td></tr>
+          <tr><td>HTTP</td><td>80 TCP</td><td>Methods, status codes, headers and unencrypted content</td></tr>
+          <tr><td>HTTPS</td><td>443 TCP</td><td>Encrypted web sessions, certificates and connection metadata</td></tr>
+          <tr><td>SSH</td><td>22 TCP</td><td>Administrative access and brute-force attempts</td></tr>
+          <tr><td>Syslog</td><td>514 UDP/TCP</td><td>Central log transport from infrastructure devices</td></tr>
+        </tbody></table></section>
+        <section id="segmentation" class="case-section"><h2>Segmentation and access control</h2><ul><li>Calculated network, broadcast and usable host ranges for common prefixes.</li><li>Used VLANs to understand broadcast-domain separation and trunk links.</li><li>Compared standard ACLs, which inspect source IP, with extended ACLs that also inspect destination, protocol and port.</li><li>Reviewed NAT/PAT, default gateways and the TTL change across routed hops.</li><li>Connected VPN and firewall concepts to remote-access and site-to-site security.</li></ul><div class="callout"><p>An ACL is stateless rule matching. A stateful firewall also tracks connection state and can apply richer inspection and logging.</p></div></section>
+        <section id="result" class="case-section"><h2>Result</h2><div class="result-grid"><div><strong>L2–L7</strong><span>traffic path connected to evidence</span></div><div><strong>6</strong><span>core services reviewed</span></div><div><strong>1</strong><span>working switched LAN built</span></div></div><p>The exercises created the network baseline needed to distinguish expected communication from suspicious scanning, brute force, beaconing or policy violations.</p></section>
+      </article>
+      <aside class="case-sidebar"><h2>Case contents</h2><a href="#objective">Objective</a><a href="#lan">LAN exercise</a><a href="#services">Core services</a><a href="#segmentation">Segmentation</a><a href="#result">Result</a></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-wrap"><p>© <span data-year></span> Artur Ivanov</p><p><a href="../index.html#projects">← Back to projects</a></p></div></footer>
+</body></html>
